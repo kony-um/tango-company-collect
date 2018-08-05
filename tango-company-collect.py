@@ -1,6 +1,4 @@
 from selenium import webdriver
-from time import sleep
-import os
 
 def print_company_info(driver):
     # 企業情報を取得してプリントする
@@ -21,14 +19,15 @@ def main():
 
     # 一覧画面に遷移
     driver.get("http://tantec.jp/companies/src")
-    while True:
+    is_continue = True
+    while is_continue:
         try:
             print_company_info(driver)
             # プリントできたら次のページに進む
             next_btn = driver.find_element_by_css_selector('body > table > tbody > tr:nth-child(4) > td:nth-child(3) > div:nth-child(4) > span:nth-child(11) > a')
             next_btn.click()
         except:
-            driver.quit()
+            is_continue = False
 
     driver.quit()
 
